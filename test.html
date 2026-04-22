@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Концепция личности: отечественный вариант</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: rgba(255, 255, 255, 0.92);
+      --card-solid: #ffffff;
+      --text: #172033;
+      --muted: #66728a;
+      --line: #dbe3f0;
+      --line-strong: #c8d3e5;
+      --accent: #3e63dd;
+      --accent-soft: #eaf0ff;
+      --accent-2: #6f8cff;
+      --shadow: 0 24px 64px rgba(28, 52, 117, 0.12);
+      --shadow-soft: 0 10px 30px rgba(34, 56, 115, 0.08);
+      --success: #1f9d69;
+      --success-soft: #e7f7f0;
+      --low: #b36a0a;
+      --low-soft: #fff4e6;
+      --medium: #2358c5;
+      --medium-soft: #ebf2ff;
+      --high: #0f8a4b;
+      --high-soft: #e7f8ef;
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 12px;
+      --transition: 220ms ease;
+      --max-width: 860px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(62, 99, 221, 0.07), transparent 26%),
+        radial-gradient(circle at top right, rgba(111, 140, 255, 0.08), transparent 24%),
+        linear-gradient(180deg, #f7f9fd 0%, #eef3fb 100%);
+    }
+
+    body {
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .app-shell {
+      width: 100%;
+      max-width: var(--max-width);
+      position: relative;
+    }
+
+    .card {
+      background: var(--card);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(219, 227, 240, 0.75);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      min-height: 680px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0)),
+        radial-gradient(circle at 10% 0%, rgba(62, 99, 221, 0.07), transparent 28%);
+      pointer-events: none;
+    }
+
+    .top-strip {
+      height: 8px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    }
+
+    .screen {
+      position: relative;
+      z-index: 1;
+      display: none;
+      flex: 1;
+      padding: 44px 44px 36px;
+      animation: fadeSlide 280ms ease;
+    }
+
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    @keyframes fadeSlide {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      width: fit-content;
+      margin-bottom: 18px;
+    }
+
+    h1, h2, h3, p {
+      margin: 0;
+    }
+
+    .hero-title {
+      font-size: clamp(30px, 5vw, 48px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      font-weight: 800;
+      margin-bottom: 18px;
+      max-width: 680px;
+    }
+
+    .hero-subtitle {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 720px;
+      margin-bottom: 28px;
+    }
+
+    .instruction-box {
+      background: rgba(245, 248, 255, 0.95);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 22px 22px;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 28px;
+    }
+
+    .instruction-box h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .instruction-box p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+
+    .legend {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 34px;
+    }
+
+    .legend-item {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .legend-item strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+
+    .btn {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-size: 15px;
+      font-weight: 700;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition), color var(--transition), border-color var(--transition), opacity var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      box-shadow: 0 14px 30px rgba(62, 99, 221, 0.24);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 18px 34px rgba(62, 99, 221, 0.28);
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--line-strong);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid transparent;
+      padding-inline: 0;
+      min-height: auto;
+    }
+
+    .question-header {
+      margin-bottom: 18px;
+    }
+
+    .progress-wrap {
+      margin-bottom: 30px;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 12px;
+      background: #e8eef9;
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 260ms ease;
+    }
+
+    .question-card {
+      background: var(--card-solid);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+      padding: 28px 28px 26px;
+      margin-bottom: 24px;
+    }
+
+    .question-scale {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-soft);
+      border-radius: 999px;
+      padding: 8px 12px;
+      margin-bottom: 16px;
+    }
+
+    .question-text {
+      font-size: clamp(22px, 3.2vw, 30px);
+      line-height: 1.35;
+      letter-spacing: -0.03em;
+      font-weight: 750;
+      margin-bottom: 26px;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .option-btn {
+      background: #fff;
+      border: 1px solid var(--line-strong);
+      border-radius: 18px;
+      min-height: 84px;
+      padding: 12px 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition), color var(--transition);
+      box-shadow: 0 8px 20px rgba(22, 36, 70, 0.04);
+      color: var(--text);
+    }
+
+    .option-btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(62, 99, 221, 0.45);
+      box-shadow: 0 14px 24px rgba(31, 53, 112, 0.08);
+    }
+
+    .option-btn.selected {
+      background: linear-gradient(135deg, rgba(62, 99, 221, 0.12), rgba(111, 140, 255, 0.18));
+      border-color: rgba(62, 99, 221, 0.6);
+      box-shadow: 0 18px 28px rgba(62, 99, 221, 0.14);
+    }
+
+    .option-value {
+      font-size: 24px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .option-label {
+      font-size: 12px;
+      line-height: 1.25;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .option-btn.selected .option-label {
+      color: #2b4dbb;
+    }
+
+    .scale-hints {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+      margin-top: 4px;
+    }
+
+    .question-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: auto;
+      flex-wrap: wrap;
+    }
+
+    .question-note {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .result-header {
+      margin-bottom: 24px;
+    }
+
+    .result-title {
+      font-size: clamp(28px, 4.4vw, 42px);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .result-subtitle {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    .results-grid {
+      display: grid;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .result-item {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 20px 20px 18px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .result-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .result-scale-title {
+      font-size: 18px;
+      line-height: 1.35;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+
+    .result-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .status-low {
+      background: var(--low-soft);
+      color: var(--low);
+    }
+
+    .status-medium {
+      background: var(--medium-soft);
+      color: var(--medium);
+    }
+
+    .status-high {
+      background: var(--high-soft);
+      color: var(--high);
+    }
+
+    .result-score {
+      min-width: 120px;
+      text-align: right;
+    }
+
+    .result-score-main {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .result-score-sub {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .bar-track {
+      width: 100%;
+      height: 14px;
+      border-radius: 999px;
+      background: #e8eef9;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 360ms ease;
+    }
+
+    .result-description {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .copy-state {
+      margin-left: auto;
+      color: var(--success);
+      font-size: 13px;
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 200ms ease, transform 200ms ease;
+    }
+
+    .copy-state.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: #f8fbff;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 16px;
+      }
+
+      .screen {
+        padding: 28px 20px 24px;
+      }
+
+      .card {
+        min-height: 620px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .legend {
+        grid-template-columns: 1fr;
+      }
+
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .option-btn {
+        min-height: 68px;
+        padding: 12px 14px;
+        display: grid;
+        grid-template-columns: 48px 1fr;
+        align-items: center;
+        text-align: left;
+      }
+
+      .option-value {
+        font-size: 22px;
+        justify-self: center;
+      }
+
+      .option-label {
+        font-size: 13px;
+      }
+
+      .scale-hints {
+        display: none;
+      }
+
+      .question-text {
+        font-size: 24px;
+      }
+
+      .question-footer {
+        align-items: stretch;
+      }
+
+      .actions {
+        width: 100%;
+      }
+
+      .actions .btn {
+        width: 100%;
+      }
+
+      .result-score {
+        text-align: left;
+      }
+
+      .copy-state {
+        width: 100%;
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title,
+      .result-title {
+        font-size: 28px;
+      }
+
+      .question-card {
+        padding: 20px 16px 18px;
+      }
+
+      .screen {
+        padding: 22px 14px 18px;
+      }
+
+      .instruction-box,
+      .legend-item,
+      .result-item,
+      .footer-note {
+        border-radius: 16px;
+      }
+
+      .btn {
+        min-height: 48px;
+        font-size: 14px;
+      }
+    }
+
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      border: 0 !important;
+      white-space: nowrap !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <main class="card" aria-live="polite">
+      <div class="top-strip"></div>
+
+      <section id="start-screen" class="screen active" aria-labelledby="start-title">
+        <div class="eyebrow">Диагностический опросник</div>
+        <h1 id="start-title" class="hero-title">Концепция личности: отечественный вариант</h1>
+        <p class="hero-subtitle">
+          Перед вами опросник, направленный на ориентировочную оценку выраженности личностных компонентов. Прочитайте каждое утверждение и выберите степень согласия с ним по шкале от 1 до 5.
+        </p>
+
+        <div class="instruction-box">
+          <h3>Инструкция</h3>
+          <p>
+            В тесте содержится 25 утверждений. Ответы распределяются по пяти шкалам:
+            субъектность, осмысленность деятельности, внутренняя регуляция и рефлексивность,
+            система отношений, ценностно-смысловая целостность. После завершения вы увидите
+            результат по каждой шкале в баллах, процентах и в виде визуальной шкалы выраженности.
+          </p>
+        </div>
+
+        <div class="legend" aria-label="Легенда шкалы ответов">
+          <div class="legend-item">
+            <strong>1–2</strong>
+            Низкая степень согласия с утверждением.
+          </div>
+          <div class="legend-item">
+            <strong>3</strong>
+            Нейтральная позиция: ни согласен, ни не согласен.
+          </div>
+          <div class="legend-item">
+            <strong>4–5</strong>
+            Высокая степень согласия с утверждением.
+          </div>
+          <div class="legend-item">
+            <strong>Обратные вопросы</strong>
+            Для части утверждений используется обратное кодирование при подсчёте результата.
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary" id="start-btn" type="button">Начать</button>
+        </div>
+      </section>
+
+      <section id="question-screen" class="screen" aria-labelledby="question-title">
+        <div class="progress-wrap">
+          <div class="progress-meta">
+            <span id="progress-counter">Вопрос 1 из 25</span>
+            <span id="progress-percent">4%</span>
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <div id="progress-fill" class="progress-fill"></div>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-header">
+            <div id="question-scale" class="question-scale">Шкала</div>
+            <h2 id="question-title" class="question-text">Текст вопроса</h2>
+          </div>
+
+          <div id="options-grid" class="options-grid" role="radiogroup" aria-label="Выберите степень согласия"></div>
+
+          <div class="scale-hints" aria-hidden="true">
+            <span>Совершенно не согласен</span>
+            <span>Ни согласен, ни не согласен</span>
+            <span>Полностью согласен</span>
+          </div>
+        </div>
+
+        <div class="question-footer">
+          <div class="question-note">
+            Выберите один вариант ответа, затем перейдите к следующему утверждению.
+          </div>
+          <div class="actions">
+            <button class="btn btn-secondary" id="prev-btn" type="button">Назад</button>
+            <button class="btn btn-primary" id="next-btn" type="button">Далее</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="result-screen" class="screen" aria-labelledby="result-title">
+        <div class="eyebrow">Результаты</div>
+        <div class="result-header">
+          <h2 id="result-title" class="result-title">Профиль выраженности личностных компонентов</h2>
+          <p class="result-subtitle">
+            Ниже представлены результаты по пяти шкалам в баллах, процентах и в виде визуальных индикаторов. Интерпретация носит ориентировочный характер и предназначена для образовательной и рефлексивной работы.
+          </p>
+        </div>
+
+        <div id="results-grid" class="results-grid"></div>
+
+        <div class="actions">
+          <button class="btn btn-secondary" id="restart-btn" type="button">Пройти ещё раз</button>
+          <button class="btn btn-primary" id="copy-btn" type="button">Скопировать результаты</button>
+          <div id="copy-state" class="copy-state" aria-live="polite">Результаты скопированы</div>
+        </div>
+
+        <div class="footer-note">
+          Итоговые показатели не являются стандартизированным психодиагностическим заключением. Они ориентировочно отражают степень выраженности выделенных компонентов в рамках данной теоретической модели.
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Массив вопросов и логики теста
+    const questions = [
+      { id: 1, text: "В важных жизненных ситуациях я стараюсь сам(а) определить свою позицию.", scale: "Субъектность", reverse: false },
+      { id: 2, text: "Мне проще следовать чужому решению, чем делать собственный выбор.", scale: "Субъектность", reverse: true },
+      { id: 3, text: "Если обстоятельства меняются, я ищу способ действовать, а не только объяснение трудностей.", scale: "Субъектность", reverse: false },
+      { id: 4, text: "Я обычно воспринимаю свои поступки как результат собственного решения.", scale: "Субъектность", reverse: false },
+      { id: 5, text: "Нередко мне кажется, что мои усилия мало что меняют.", scale: "Субъектность", reverse: true },
+
+      { id: 6, text: "Мне важно понимать, ради чего я выполняю учебные и другие обязанности.", scale: "Осмысленность деятельности", reverse: false },
+      { id: 7, text: "Я могу связать текущие дела со своими более дальними целями.", scale: "Осмысленность деятельности", reverse: false },
+      { id: 8, text: "Когда дело имеет для меня внутреннее значение, я работаю более устойчиво.", scale: "Осмысленность деятельности", reverse: false },
+      { id: 9, text: "Я часто действую по инерции, не задаваясь вопросом о значении того, что делаю.", scale: "Осмысленность деятельности", reverse: true },
+      { id: 10, text: "Даже сложная задача становится для меня выполнимее, если я вижу её личную значимость.", scale: "Осмысленность деятельности", reverse: false },
+
+      { id: 11, text: "Перед важным делом я обычно продумываю последовательность своих действий.", scale: "Внутренняя регуляция и рефлексивность", reverse: false },
+      { id: 12, text: "После завершения работы я стараюсь понять, что получилось хорошо, а что нет.", scale: "Внутренняя регуляция и рефлексивность", reverse: false },
+      { id: 13, text: "В напряжённой ситуации мне трудно управлять своими действиями.", scale: "Внутренняя регуляция и рефлексивность", reverse: true },
+      { id: 14, text: "Если я ошибаюсь, то стараюсь изменить способ действия, а не только исправить результат.", scale: "Внутренняя регуляция и рефлексивность", reverse: false },
+      { id: 15, text: "Мне трудно объяснить самому(самой) себе, почему я поступаю именно так.", scale: "Внутренняя регуляция и рефлексивность", reverse: true },
+
+      { id: 16, text: "Моё отношение к людям влияет на то, как я учусь, работаю и принимаю решения.", scale: "Система отношений", reverse: false },
+      { id: 17, text: "Для меня важно не только выполнить дело, но и сохранить уважительные отношения с другими.", scale: "Система отношений", reverse: false },
+      { id: 18, text: "Я редко задумываюсь о том, как мои поступки отражаются на окружающих.", scale: "Система отношений", reverse: true },
+      { id: 19, text: "Отношение к себе заметно влияет на моё поведение в сложных ситуациях.", scale: "Система отношений", reverse: false },
+      { id: 20, text: "Общение с другими помогает мне лучше понять собственную позицию.", scale: "Система отношений", reverse: false },
+
+      { id: 21, text: "Я могу назвать жизненные принципы, на которые действительно опираюсь.", scale: "Ценностно-смысловая целостность", reverse: false },
+      { id: 22, text: "Мои повседневные решения в целом согласуются с тем, что я считаю важным.", scale: "Ценностно-смысловая целостность", reverse: false },
+      { id: 23, text: "Бывает, что мои поступки противоречат моим убеждениям, и я почти не замечаю этого.", scale: "Ценностно-смысловая целостность", reverse: true },
+      { id: 24, text: "Когда мне нужно сделать выбор, я стараюсь соотнести его со своими ценностями.", scale: "Ценностно-смысловая целостность", reverse: false },
+      { id: 25, text: "Мне трудно связать отдельные цели и желания в более целостное представление о себе.", scale: "Ценностно-смысловая целостность", reverse: true }
+    ];
+
+    // Описание шкал для итогового экрана
+    const scaleDescriptions = {
+      "Субъектность": "Отражает выраженность самостоятельной позиции, готовность к выбору и восприятие собственных действий как результата личного решения.",
+      "Осмысленность деятельности": "Показывает, насколько деятельность переживается как лично значимая, связанная с более общими целями и внутренними основаниями.",
+      "Внутренняя регуляция и рефлексивность": "Характеризует способность к самоконтролю, анализу собственных действий и изменению способа действия при ошибках или трудностях.",
+      "Система отношений": "Отражает значимость отношений к другим, к себе и к социальному окружению как факторов поведения и принятия решений.",
+      "Ценностно-смысловая целостность": "Показывает степень согласованности повседневных решений, жизненных принципов и общего представления о себе."
+    };
+
+    // Варианты ответов для шкалы Лайкерта
+    const likertOptions = [
+      { value: 1, label: "Совершенно не согласен" },
+      { value: 2, label: "Скорее не согласен" },
+      { value: 3, label: "Ни согласен, ни не согласен" },
+      { value: 4, label: "Скорее согласен" },
+      { value: 5, label: "Полностью согласен" }
+    ];
+
+    // Элементы интерфейса
+    const startScreen = document.getElementById("start-screen");
+    const questionScreen = document.getElementById("question-screen");
+    const resultScreen = document.getElementById("result-screen");
+
+    const startBtn = document.getElementById("start-btn");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const restartBtn = document.getElementById("restart-btn");
+    const copyBtn = document.getElementById("copy-btn");
+
+    const questionScale = document.getElementById("question-scale");
+    const questionTitle = document.getElementById("question-title");
+    const optionsGrid = document.getElementById("options-grid");
+
+    const progressCounter = document.getElementById("progress-counter");
+    const progressPercent = document.getElementById("progress-percent");
+    const progressFill = document.getElementById("progress-fill");
+
+    const resultsGrid = document.getElementById("results-grid");
+    const copyState = document.getElementById("copy-state");
+
+    // Состояние теста
+    let currentQuestionIndex = 0;
+    let answers = {};
+
+    // Переключение экранов
+    function showScreen(screenName) {
+      startScreen.classList.remove("active");
+      questionScreen.classList.remove("active");
+      resultScreen.classList.remove("active");
+
+      if (screenName === "start") startScreen.classList.add("active");
+      if (screenName === "question") questionScreen.classList.add("active");
+      if (screenName === "result") resultScreen.classList.add("active");
+    }
+
+    // Обновление прогресса
+    function updateProgress() {
+      const current = currentQuestionIndex + 1;
+      const total = questions.length;
+      const percent = Math.round((current / total) * 100);
+
+      progressCounter.textContent = `Вопрос ${current} из ${total}`;
+      progressPercent.textContent = `${percent}%`;
+      progressFill.style.width = `${percent}%`;
+    }
+
+    // Отрисовка текущего вопроса
+    function renderQuestion() {
+      const question = questions[currentQuestionIndex];
+      const selectedValue = answers[question.id] ?? null;
+
+      questionScale.textContent = question.scale;
+      questionTitle.textContent = question.text;
+      optionsGrid.innerHTML = "";
+
+      likertOptions.forEach((option) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "option-btn";
+        button.setAttribute("role", "radio");
+        button.setAttribute("aria-checked", String(selectedValue === option.value));
+        button.dataset.value = option.value;
+
+        if (selectedValue === option.value) {
+          button.classList.add("selected");
+        }
+
+        button.innerHTML = `
+          <span class="option-value">${option.value}</span>
+          <span class="option-label">${option.label}</span>
+        `;
+
+        button.addEventListener("click", () => {
+          answers[question.id] = option.value;
+          renderQuestion();
+        });
+
+        optionsGrid.appendChild(button);
+      });
+
+      prevBtn.disabled = currentQuestionIndex === 0;
+      prevBtn.style.opacity = currentQuestionIndex === 0 ? "0.55" : "1";
+      prevBtn.style.cursor = currentQuestionIndex === 0 ? "not-allowed" : "pointer";
+
+      nextBtn.textContent = currentQuestionIndex === questions.length - 1 ? "Завершить" : "Далее";
+      updateProgress();
+    }
+
+    // Обработка кнопки "Далее"
+    function handleNext() {
+      const currentQuestion = questions[currentQuestionIndex];
+      if (!answers[currentQuestion.id]) {
+        return;
+      }
+
+      if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex += 1;
+        renderQuestion();
+      } else {
+        renderResults();
+        showScreen("result");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+
+    // Обработка кнопки "Назад"
+    function handlePrev() {
+      if (currentQuestionIndex > 0) {
+        currentQuestionIndex -= 1;
+        renderQuestion();
+      }
+    }
+
+    // Определение уровня выраженности по диапазонам
+    function getLevel(score) {
+      if (score >= 5 && score <= 11) {
+        return {
+          label: "Низкая выраженность",
+          className: "status-low"
+        };
+      }
+      if (score >= 12 && score <= 18) {
+        return {
+          label: "Средняя выраженность",
+          className: "status-medium"
+        };
+      }
+      return {
+        label: "Высокая выраженность",
+        className: "status-high"
+      };
+    }
+
+    // Подсчёт результатов по шкалам
+    function calculateResults() {
+      const scaleScores = {};
+      const maxPerScale = 25;
+
+      questions.forEach((question) => {
+        const rawValue = answers[question.id];
+        const finalValue = question.reverse ? (6 - rawValue) : rawValue;
+
+        if (!scaleScores[question.scale]) {
+          scaleScores[question.scale] = 0;
+        }
+
+        scaleScores[question.scale] += finalValue;
+      });
+
+      return Object.keys(scaleDescriptions).map((scaleName) => {
+        const score = scaleScores[scaleName] || 0;
+        const percent = Math.round((score / maxPerScale) * 100);
+        const level = getLevel(score);
+
+        return {
+          scaleName,
+          score,
+          max: maxPerScale,
+          percent,
+          level,
+          description: scaleDescriptions[scaleName]
+        };
+      });
+    }
+
+    // Отрисовка итогового экрана
+    function renderResults() {
+      const results = calculateResults();
+      resultsGrid.innerHTML = "";
+
+      results.forEach((item) => {
+        const resultCard = document.createElement("article");
+        resultCard.className = "result-item";
+
+        resultCard.innerHTML = `
+          <div class="result-top">
+            <div>
+              <div class="result-scale-title">${item.scaleName}</div>
+              <div class="result-status ${item.level.className}">${item.level.label}</div>
+            </div>
+            <div class="result-score">
+              <div class="result-score-main">${item.score}/${item.max}</div>
+              <div class="result-score-sub">${item.percent}% от максимума</div>
+            </div>
+          </div>
+          <div class="bar-track" aria-hidden="true">
+            <div class="bar-fill" style="width: ${item.percent}%"></div>
+          </div>
+          <div class="result-description">
+            ${item.description}
+          </div>
+        `;
+
+        resultsGrid.appendChild(resultCard);
+      });
+    }
+
+    // Формирование текста для копирования
+    function buildCopyText() {
+      const results = calculateResults();
+
+      const lines = ["Концепция личности: отечественный вариант", ""];
+
+      results.forEach((item) => {
+        lines.push(`${item.scaleName} — ${item.score}/${item.max} (${item.percent}%), ${item.level.label.toLowerCase()}`);
+      });
+
+      return lines.join("\n");
+    }
+
+    // Копирование результатов
+    async function copyResults() {
+      const text = buildCopyText();
+
+      try {
+        await navigator.clipboard.writeText(text);
+        copyState.classList.add("visible");
+
+        setTimeout(() => {
+          copyState.classList.remove("visible");
+        }, 2200);
+      } catch (error) {
+        copyState.textContent = "Не удалось скопировать";
+        copyState.classList.add("visible");
+
+        setTimeout(() => {
+          copyState.textContent = "Результаты скопированы";
+          copyState.classList.remove("visible");
+        }, 2200);
+      }
+    }
+
+    // Перезапуск теста
+    function restartTest() {
+      currentQuestionIndex = 0;
+      answers = {};
+      copyState.classList.remove("visible");
+      copyState.textContent = "Результаты скопированы";
+      renderQuestion();
+      showScreen("start");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Инициализация
+    startBtn.addEventListener("click", () => {
+      currentQuestionIndex = 0;
+      showScreen("question");
+      renderQuestion();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    nextBtn.addEventListener("click", handleNext);
+    prevBtn.addEventListener("click", handlePrev);
+    restartBtn.addEventListener("click", restartTest);
+    copyBtn.addEventListener("click", copyResults);
+
+    // Клавиатурная навигация для ответов
+    document.addEventListener("keydown", (event) => {
+      if (!questionScreen.classList.contains("active")) return;
+
+      const currentQuestion = questions[currentQuestionIndex];
+      const keyNumber = Number(event.key);
+
+      if (keyNumber >= 1 && keyNumber <= 5) {
+        answers[currentQuestion.id] = keyNumber;
+        renderQuestion();
+      }
+
+      if (event.key === "ArrowRight") {
+        handleNext();
+      }
+
+      if (event.key === "ArrowLeft") {
+        handlePrev();
+      }
+    });
+  </script>
+</body>
+</html>
